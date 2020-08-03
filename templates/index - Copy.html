@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+
+<meta charset="utf-8"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+</head>
+
+<body>
+
+
+     <!-- Main Input For Receiving Query to our ML -->
+	<div class='container'>
+		<div class='row'>
+			<h1>Salary Estimator</h1>
+			<h5><i>--- by Shelley N</i></h5>
+				<h3>Your predicted salary: {{ prediction_text }} <mark id='pred'></mark></h3>
+
+    <form action="{{ url_for('predict')}}"method="post">
+		<div class="form-group">
+			<label for="job title">Job Title:</label>
+				<select class="form-control" name="job title">
+					<option value="0" selected disabled>Job Title</option>
+					<option value="data analyst">data analyst</option>
+					<option value="data scientist">data scientist</option>
+					<option value="data engineer">data engineer</option>
+					<option value="machine learning engineer">machine learning engineer</option>
+					<option value="business intelligent analyst">business intelligent analyst</option>
+					<option value="research scientist">research scientist</option>
+					<option value="actuarial analyst">actuarial analyst</option>
+					<option value="statistician">statistician</option>
+				</select>
+		</div> 
+		<div class="form-group">
+			<label for="location">Location:</label>
+				<select class="form-control" name="location">
+				<option value="0" selected disabled>Location</option>
+				<option value="Toronto">Toronto</option>
+				<option value="Montreal">Montreal</option>
+				<option value="Vancouver">Vancouver</option>
+				<option value="Mississauga">Mississauga</option>
+				<option value="Ottawa">Ottawa</option>
+				<option value="Brampton">Brampton</option>
+				<option value="Calgary">Calgary</option>
+				<option value="Markham">Markham</option>
+				<option value="Welwyn">Welwyn</option>
+				<option value="Victoria">Victoria</option>
+				<option value="Halifax">Halifax</option>
+				<option value="Edmonton">Edmonton</option>
+				<option value="Burnaby">Burnaby</option>
+				<option value="Richmond">Richmond</option>
+				<option value="Waterloo">Waterloo</option>
+				<option value="Woodbridge">Woodbridge</option>
+				<option value="Kitchener">Kitchener</option>
+				<option value="London">London</option>
+				<option value="Oakville">Oakville</option>
+				<option value="Etobicoke">Etobicoke</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="company size">Company Size:</label>
+				<select class="form-control" name="company size">
+					<option value="0" selected disabled>Company Size</option>
+					<option value="10000+ employees">10000+ employees</option>
+					<option value="5001 to 10000 employees">5001 to 10000 employees</option>
+					<option value="1001 to 5000 employees">1001 to 5000 employees</option>
+					<option value="501 to 1000 employees">501 to 1000 employees</option>
+					<option value="201 to 500 employees">201 to 500 employees</option>
+					<option value="51 to 200 employees">51 to 200 employees</option>
+					<option value="1 to 50 employees">1 to 50 employees</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="type of ownership">Type of Ownership:</label>
+				<select class="form-control" name="type of ownership">
+					<option value="0" selected disabled>Type of Ownership</option>
+					<option value="Company - Private">Company - Private</option>
+					<option value="Company - Public">Company - Public</option>
+					<option value="Subsidiary or Business Segment">Subsidiary or Business Segment</option>
+					<option value="Non-profit Organisation">Non-profit Organisation</option>
+					<option value="Hospital">Hospital</option>
+					<option value="Government">Government</option>
+					<option value="College / University">College / University</option>
+					<option value="Unknown">Unknown</option>
+					<option value="Other Organisation">Other Organisation</option>
+					<option value="Private Practice / Firm">Private Practice / Firm</option>
+					<option value="School / School District">School / School District</option>
+					<option value="Self-employed">Self-employed</option>
+					<option value="Contract">Contract</option>
+				</select>
+		</div>
+		
+		<h5><b><i>If you have skills in any of the following tools:</i></b></h4>
+		
+		<div class="form-group">
+			<label for="python">Python:</label>
+				<select class="form-control" name="python">
+					<option value="0" selected disabled>Please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="rstudio">R/RStudio:</label>
+				<select class="form-control" name="rstudio">
+					<option value="0" selected disabled>Please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="sql">SQL:</label>
+				<select class="form-control" name="sql">
+					<option value="0" selected disabled>Please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="aws">AWS:</label>
+				<select class="form-control" name="aws">
+					<option value="0" selected disabled>Please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="pytorch">Pytorch:</label>
+				<select class="form-control" name="pytorch">
+					<option value="0" selected disabled>please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="sas">SAS:</label>
+				<select class="form-control" name="sas">
+					<option value="0" selected disabled>Please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label for="excel">Excel:</label>
+				<select class="form-control" name="excel">
+					<option value="0" selected disabled>Please select</option>
+					<option value="yes">yes</option>
+					<option value="no">no</option>
+				</select>
+		</div>
+        
+        <button type="submit" class="btn btn-primary btn-block btn-large">Submit</button>
+    
+	</form>
+		</div>
+	</div>
+</body>
+</html>
