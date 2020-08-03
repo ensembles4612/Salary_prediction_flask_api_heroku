@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 #import pickle
-#import joblib
+import joblib
 from sklearn.externals import joblib
 
 app = Flask(__name__)
